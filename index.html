@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>攝影小教室</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- 引入 p5.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+
+  <!-- 新增：相機觀景窗介面元素 -->
+  <div class="camera-overlay">
+    <!-- 四個角落的框線 -->
+    <div class="viewfinder-corner top-left"></div>
+    <div class="viewfinder-corner top-right"></div>
+    <div class="viewfinder-corner bottom-left"></div>
+    <div class="viewfinder-corner bottom-right"></div>
+    
+    <!-- 相機資訊 -->
+    <div class="camera-info top-right-info">
+      [||||] 100%
+    </div>
+    <div class="camera-info bottom-left-info">
+      ISO 800 &nbsp; F2.8 &nbsp; 1/60
+    </div>
+    
+    <!-- 中央對焦框 -->
+    <div class="center-focus"></div>
+  </div>
+
+  <!-- 導覽列 -->
+  <nav>
+    <div class="logo">📸攝影小教室</div>
+    <ul class="nav-links">
+      <!-- 請將 href 的 # 替換成你的 HackMD 網址 -->
+      <li><a href="https://hackmd.io/@YyFThXCPSWyphIjJu2XjOQ/Hy-PD2if-x">設計理念</a></li>
+      <li><a href="https://hackmd.io/@YyFThXCPSWyphIjJu2XjOQ/HyeidDhjfWe">功能說明</a></li>
+      <li><a href="https://hackmd.io/@YyFThXCPSWyphIjJu2XjOQ/SJeqD3iMZl">操作說明</a></li>
+      <li><a href="https://hackmd.io/@YyFThXCPSWyphIjJu2XjOQ/B16cw2iMbg">網站說明</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    
+    <!-- 第一階段：影片教學 -->
+    <section id="video-section">
+      <h1>第一階段：觀念建立</h1>
+      <p>請完整觀看下方影片以解鎖文字教材。</p>
+      <div class="video-container">
+        <!-- YouTube Player 會被載入到這裡 -->
+        <div id="player"></div>
+      </div>
+    </section>
+
+    <!-- 第二階段：文字教學 (預設隱藏) -->
+    <section id="text-section" class="hidden">
+      <h1>第二階段：攝影知識精華</h1>
+      <div class="content-box">
+        <h2>攝影師的一日旅程：從新手到大師</h2>
+        <p>歡迎來到攝影的世界！為了讓你更輕鬆記住這 20 個考題重點，我們將透過「一日攝影師」的故事，帶你實際走訪各種拍攝場景。</p>
+
+        <h3>1. 出發前的準備：格式與基礎</h3>
+        <p>今天是你第一次接案拍攝。出門前，你檢查相機設定，為了保留最多的後製空間與資訊，你將檔案格式設為 <strong>RAW 檔</strong>，而不是一般的 JPG。你回想攝影的核心——「曝光三角形」，這包含了快門速度、光圈以及 <strong>ISO</strong>。</p>
+
+        <h3>2. 上午：人像外拍 (鏡頭與光線)</h3>
+        <p>第一站是公園的人像攝影。為了讓模特兒的臉部看起來更立體，你避開了正面光，選擇了 <strong>側光</strong>。如果發現照片顏色偏黃或偏藍，別擔心，通常是因為 <strong>白平衡沒有調整好</strong>。</p>
+        <p>你拿出了 <strong>望遠鏡頭</strong>，因為你知道它能壓縮背景，讓臉部看起來 <strong>較扁較壓縮</strong>，修飾臉型。如果你想拍出「背景模糊、人物清楚」的夢幻糖水照，記得使用 <strong>大光圈</strong>。</p>
+        <p>拍著拍著，模特兒希望能拍一張全身照帶到風景，這時你需要換上 <strong>廣角鏡頭</strong> 以容納更多畫面。</p>
+
+        <h3>3. 中午：捕捉動態 (快門與連拍)</h3>
+        <p>接著你來到球場拍攝比賽。球員跑得很快，為了「定格」他們的動作，你需要 <strong>快門快</strong>。但你發現照片變暗了，這是因為提高快門速度會讓 <strong>光線進入時間變短</strong>。</p>
+        <p>為了不錯過精彩瞬間，你開啟了 <strong>連拍模式 (Burst Mode)</strong>，這最適合拍攝 <strong>快速移動的人或球賽</strong>。</p>
+
+        <h3>4. 下午：風景與微距 (光圈與濾鏡)</h3>
+        <p>比賽結束後，你走到旁邊的花園。你想拍一朵小花的特寫，於是把相機靠得很近，這叫做 <strong>微距攝影</strong>。</p>
+        <p>接著拍攝大風景，為了讓遠近的景物都很清楚，你應該使用 <strong>小光圈</strong>。所謂「景深」，指的就是 <strong>畫面中清楚的範圍</strong>。</p>
+        <p>天空很藍，但你想讓它更深更飽和，於是裝上了 <strong>偏光濾鏡（CPL）</strong>。如果雲層細節不見了（過曝），記得 <strong>降低曝光</strong> 來保留細節。</p>
+        <p>構圖時，你運用了 <strong>三分法構圖</strong>，將畫面分成 <strong>3x3 九格</strong>，把主體放在交叉點上。記住，「構圖」的主要目的是為了讓畫面 <strong>看起來更有秩序與主題</strong>。</p>
+
+        <h3>5. 傍晚：低光與手機攝影 (ISO 與 HDR)</h3>
+        <p>天色漸暗，光線不足。為了讓照片變亮，你提高了 ISO，但要注意這會導致 <strong>雜訊變多</strong>。面對夕陽這種高反差場景，你可以開啟 <strong>HDR</strong> 功能來 <strong>增加高光與暗部細節</strong>。</p>
+        <p>最後，你拿出手機補拍幾張花絮。手機對焦很簡單，通常是 <strong>點畫面上你要對焦的地方</strong> 就可以了。</p>
+
+        <div style="height: 200px; display: flex; align-items: center; justify-content: center; color: #aaa;">
+          <p>（恭喜你完成了一天的拍攝！請繼續往下滑動...）</p>
+        </div>
+        <p>恭喜你讀完了！請點擊下方按鈕開始測驗。</p>
+      </div>
+      
+      <button id="btn-read-complete" disabled>閱讀完畢 (請滑到底部)</button>
+    </section>
+
+    <!-- 第三階段：測驗 (預設隱藏) -->
+    <section id="quiz-section" class="hidden">
+      <h1>第三階段：成果驗收</h1>
+      <div id="quiz-container">
+        <!-- 題目會由 JS 動態產生 -->
+      </div>
+      <button id="btn-submit-quiz">送出答案</button>
+    </section>
+
+  </div>
+
+  <!-- 新增：HackMD 彈跳視窗結構 -->
+  <div id="modal-overlay" class="hidden">
+    <div class="modal-content">
+      <span id="modal-close">&times;</span>
+      <iframe id="modal-iframe" src=""></iframe>
+    </div>
+  </div>
+
+  <!-- 引入你的 JS 檔案 -->
+  <script src="sketch.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
