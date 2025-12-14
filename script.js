@@ -32,6 +32,8 @@ const dragData = [
   { desc: "風景照片前後都清楚", ans: "小光圈" }
 ];
 
+let lastIncorrectDetails = []; // 新增：用來儲存上一次的錯誤紀錄，供重新測驗時查看
+
 // --- 1. YouTube API 設定 ---
 var tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
@@ -329,6 +331,9 @@ function calculateScore() {
     }
   });
 
+  // 將本次錯誤紀錄存入全域變數，供重新測驗時使用
+  lastIncorrectDetails = incorrectDetails;
+
   if (answeredCount < total) {
     alert("請回答完所有題目再送出！");
     return;
@@ -391,6 +396,49 @@ function calculateScore() {
     renderQuiz(); // 重新產生題目
     document.getElementById('btn-submit-quiz').style.display = ''; // 恢復顯示送出按鈕
     document.getElementById('quiz-section').scrollIntoView({ behavior: 'smooth' });
+
+    // --- 新增：若有錯誤紀錄，顯示「查看上次錯誤」按鈕 ---
+    if (lastIncorrectDetails.length > 0) {
+      const container = document.getElementById('quiz-container');
+      
+      // 1. 建立錯誤紀錄顯示區 (預設隱藏)
+      const reviewDiv = document.createElement('div');
+      reviewDiv.style.display = 'none';
+      reviewDiv.style.background = 'rgba(255, 100, 100, 0.1)'; // 淡紅色背景
+      reviewDiv.style.padding = '20px';
+      reviewDiv.style.borderRadius = '10px';
+      reviewDiv.style.marginBottom = '20px';
+      reviewDiv.style.border = '1px solid #ff6b6b';
+      
+      reviewDiv.innerHTML = `
+        <h3 style="color: #ff6b6b; margin-top: 0; border-bottom: 1px solid rgba(255, 107, 107, 0.3); padding-bottom: 10px;">上次錯誤紀錄</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          ${lastIncorrectDetails.map(item => `
+            <li style="margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px;">
+              <div style="font-size: 1rem; color: #fff; margin-bottom: 5px;">[${item.type} #${item.no}] ${item.q}</div>
+            </li>
+          `).join('')}
+        </ul>
+      `;
+
+      // 2. 建立切換按鈕
+      const reviewBtn = document.createElement('button');
+      reviewBtn.innerText = '📋 查看上次錯誤紀錄 (點擊展開)';
+      reviewBtn.style.background = '#ff6b6b'; // 紅色系按鈕
+      reviewBtn.style.color = '#fff';
+      reviewBtn.style.marginBottom = '20px';
+      reviewBtn.style.width = '100%';
+      
+      reviewBtn.onclick = function() {
+        const isHidden = reviewDiv.style.display === 'none';
+        reviewDiv.style.display = isHidden ? 'block' : 'none';
+        reviewBtn.innerText = isHidden ? '🔼 隱藏錯誤紀錄' : '📋 查看上次錯誤紀錄 (點擊展開)';
+      };
+
+      // 3. 插入到測驗卷的最上方
+      container.insertBefore(reviewDiv, container.firstChild);
+      container.insertBefore(reviewBtn, container.firstChild);
+    }
   };
 
   // 綁定按鈕事件
