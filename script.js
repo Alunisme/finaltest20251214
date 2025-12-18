@@ -45,7 +45,7 @@ function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
     height: '390',
     width: '640',
-    videoId: 'uBrFVaci_cs', // 這裡放你要的 YouTube 影片 ID (例如: V7z7BAZdt2M 是 Canon 的教學)
+    videoId: '5A4lTbh_Rkc', // 這裡放你要的 YouTube 影片 ID (例如: V7z7BAZdt2M 是 Canon 的教學)
     events: {
       'onStateChange': onPlayerStateChange
     }
@@ -545,3 +545,4 @@ modalOverlay.addEventListener('click', (e) => {
     modalIframe.src = '';
   }
 });
+
